@@ -8,26 +8,24 @@ categories = ['tools']
 toc = true
 +++
 
-A work-managed laptop may already have a corporate Git identity configured globally:
+A managed laptop may already have a work identity configured globally:
 
 ```bash
 git config --global user.name "Work Name"
 git config --global user.email "name@company.example"
 ```
 
-Selected personal repositories can use a different identity without changing those machine-wide defaults. Git supports repository-local configuration, and SSH can be told to use a dedicated key for each selected repository.
+You can override it in selected repositories without changing the global defaults. Keep these settings distinct:
 
-This setup keeps three concerns separate:
+- `user.name` and `user.email` set the author recorded in commits.
+- An SSH key authenticates GitHub access.
+- Repository-local configuration confines both settings to that repository.
 
-- `user.name` and `user.email` determine the author recorded in commits.
-- The SSH key authenticates access to GitHub.
-- Repository-local configuration limits both choices to one repository.
+First confirm that your organization's acceptable-use and source-code policies permit personal work on the device.
 
-Before using a personal account or project on a managed device, make sure the organization's acceptable-use and source-code policies permit it.
+## Create a personal GitHub SSH key
 
-## Create a dedicated GitHub SSH key
-
-Choose the private GitHub email address shown under **GitHub → Settings → Emails**, then create a separate key:
+Choose an email associated with your personal GitHub account. To keep it private, copy the no-reply address shown under **GitHub → Settings → Emails**. Then create a dedicated key, replacing the example email:
 
 ```bash
 ssh-keygen \
@@ -36,72 +34,60 @@ ssh-keygen \
   -f "$HOME/.ssh/id_ed25519_github"
 ```
 
-Use a passphrase when prompted. The numeric prefix and username above are placeholders; copy the actual no-reply address from GitHub rather than constructing it from memory.
-
-Add the contents of the public key to **GitHub → Settings → SSH and GPG keys → New SSH key**:
+Use a passphrase. Add the public key to **GitHub → Settings → SSH and GPG keys → New SSH key**:
 
 ```bash
 pbcopy < "$HOME/.ssh/id_ed25519_github.pub"
 ```
 
-`pbcopy` is available on macOS. On another operating system, display the `.pub` file and copy its contents with the available clipboard tool.
+`pbcopy` is a macOS command; on another operating system, copy the contents of the `.pub` file with its clipboard tool.
 
-## Add repository helpers to zsh
+Add the key to your SSH agent so its passphrase can be cached:
 
-Add these functions to `~/.zshrc`, replacing the placeholder name and email with the personal GitHub commit identity:
+```bash
+ssh-add --apple-use-keychain "$HOME/.ssh/id_ed25519_github"
+```
+
+`--apple-use-keychain` is specific to macOS. Elsewhere, run `ssh-add "$HOME/.ssh/id_ed25519_github"`.
+
+## Add zsh helpers
+
+Add these functions to `~/.zshrc`, replacing the example name and email:
 
 ```zsh
 github_identity() {
-  # Identity to use for GitHub commits from this repo.
   local name="Your Name"
   local email="12345678+username@users.noreply.github.com"
-
-  # Dedicated SSH key reserved for GitHub access.
   local key="$HOME/.ssh/id_ed25519_github"
-
-  # Repo to configure; defaults to the current directory.
   local repo="${1:-.}"
+  local ssh_command="ssh -i ${(q)key} -o IdentitiesOnly=yes"
 
-  # Stop early if the GitHub SSH key has not been created yet.
   if [[ ! -f "$key" ]]; then
     echo "Missing key: $key"
-    echo "Create it first with:"
-    echo "ssh-keygen -t ed25519 -C \"$email\" -f \"$key\""
     return 1
   fi
 
-  # Apply the settings only to an existing Git work tree.
-  git -C "$repo" rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
-    echo "Not a Git repo: $repo"
+  if ! git -C "$repo" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Not a Git repository: $repo"
     return 1
-  }
+  fi
 
-  # Make the key available for GitHub SSH authentication.
-  ssh-add --apple-use-keychain "$key" 2>/dev/null || ssh-add "$key"
+  git -C "$repo" config --local user.name "$name" || return 1
+  git -C "$repo" config --local user.email "$email" || return 1
+  git -C "$repo" config --local core.sshCommand "$ssh_command" || return 1
 
-  # Scope the commit identity to this repo only.
-  git -C "$repo" config --local user.name "$name"
-  git -C "$repo" config --local user.email "$email"
-
-  # Force this repo to use only the dedicated GitHub SSH key.
-  git -C "$repo" config --local core.sshCommand \
-    "ssh -i '$key' -o IdentitiesOnly=yes"
-
-  # Confirm what was configured.
-  echo "Configured GitHub identity for:"
-  git -C "$repo" rev-parse --show-toplevel
+  echo "Configured $(git -C "$repo" rev-parse --show-toplevel)"
   echo "$name <$email>"
   echo "SSH key: $key"
 }
 
 github_clone() {
-  # Clone a GitHub repo with the dedicated GitHub SSH key.
   local repo_url="$1"
   local key="$HOME/.ssh/id_ed25519_github"
+  local ssh_command="ssh -i ${(q)key} -o IdentitiesOnly=yes"
 
-  # Require an SSH clone URL.
-  if [[ -z "$repo_url" ]]; then
-    echo "Usage: github_clone git@github.com:OWNER/REPO.git"
+  if [[ "$repo_url" != git@github.com:* ]]; then
+    echo "Usage: github_clone git@github.com:OWNER/REPOSITORY.git"
     return 1
   fi
 
@@ -110,66 +96,50 @@ github_clone() {
     return 1
   fi
 
-  # Use only the dedicated key during the clone operation.
-  GIT_SSH_COMMAND="ssh -i '$key' -o IdentitiesOnly=yes" \
-    git clone "$repo_url" || return 1
-
-  # zsh modifiers remove the URL prefix and .git suffix.
   local repo_dir="${repo_url:t:r}"
-  cd "$repo_dir" || return 1
-
-  # Persist the repo-local identity and SSH configuration.
-  github_identity
+  GIT_SSH_COMMAND="$ssh_command" git clone "$repo_url" "$repo_dir" || return 1
+  github_identity "$repo_dir"
 }
 ```
 
-Reload the shell after saving the file:
+Reload zsh after saving the file:
 
 ```bash
 source ~/.zshrc
 ```
 
-The `--apple-use-keychain` option is specific to macOS. The fallback works with `ssh-add` implementations that do not support it.
+## Configure or clone a repository
 
-## Configure an existing repository
-
-Enter a personal repository and run:
+Configure an existing repository by running the helper inside it or passing its path:
 
 ```bash
 cd ~/code/personal-project
 github_identity
-```
 
-A repository path can also be supplied without changing directories:
-
-```bash
+# Or, from any directory:
 github_identity ~/code/personal-project
 ```
 
-The function writes to `.git/config`, not `~/.gitconfig`. The global corporate identity remains unchanged and continues to apply everywhere else.
+The helper writes the commit identity and SSH command to the repository's `.git/config`; it does not modify `~/.gitconfig`.
 
-## Clone a personal repository
-
-Cloning happens before a new repository has local Git configuration. Use the dedicated key for that one command:
-
-```bash
-GIT_SSH_COMMAND="ssh -i '$HOME/.ssh/id_ed25519_github' -o IdentitiesOnly=yes" \
-  git clone git@github.com:OWNER/REPOSITORY.git
-```
-
-Then enter the repository and run `github_identity` to persist its commit and SSH settings.
-
-The `github_clone` helper performs both steps:
+A new repository has no local configuration until after cloning. `github_clone` uses the personal key for the clone, then saves all three repository-local settings:
 
 ```bash
 github_clone git@github.com:OWNER/REPOSITORY.git
 ```
 
-Use an SSH remote such as `git@github.com:OWNER/REPOSITORY.git`. An HTTPS remote does not use `core.sshCommand` or the SSH key.
+> **Side note:** To clone with the personal key without adding the zsh helpers, run:
+>
+> ```bash
+> GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_github -o IdentitiesOnly=yes" \
+>   git clone git@github.com:OWNER/REPOSITORY.git
+> ```
 
-## Verify the effective configuration
+Use an SSH remote in the `git@github.com:OWNER/REPOSITORY.git` form. HTTPS remotes do not use SSH keys or `core.sshCommand`.
 
-Inside the repository, inspect both the values and the files that supplied them:
+## Verify the result
+
+From the repository, inspect each effective value and its source:
 
 ```bash
 git config --show-origin --get user.name
@@ -178,30 +148,30 @@ git config --show-origin --get core.sshCommand
 git remote -v
 ```
 
-The first three commands should point to the repository's `.git/config`, while this command should still show the machine-wide work email:
+The first three values should come from the repository's `.git/config`. The global work identity should remain unchanged:
 
 ```bash
 git config --global --get user.email
 ```
 
-Test GitHub authentication with the same dedicated key:
+Confirm that the key authenticates the personal account:
 
 ```bash
 ssh -T -i "$HOME/.ssh/id_ed25519_github" \
   -o IdentitiesOnly=yes git@github.com
 ```
 
-GitHub should report the personal account's username. It normally exits with status 1 even after successful authentication because GitHub does not provide shell access.
+GitHub should name the personal account. A successful test still exits with status 1 because GitHub does not provide shell access.
 
-Before the first commit, confirm the identity Git will use:
+Before committing, confirm the author and committer Git will record:
 
 ```bash
 git var GIT_AUTHOR_IDENT
 git var GIT_COMMITTER_IDENT
 ```
 
-## What this does not do
+## Limits
 
-The SSH key authenticates pushes, but it does not cryptographically sign commits. Commit signing is a separate Git and GitHub configuration.
+The SSH key authenticates pushes; it does not sign commits. Commit signing requires separate Git and GitHub configuration.
 
-Repository-local identity also cannot change ownership or policy constraints on a managed laptop. It only prevents the global Git identity and default SSH keys from being selected accidentally for the repositories configured this way.
+These settings also do not change ownership or policy restrictions on a managed device. They only prevent Git's global identity and default SSH keys from being selected for repositories configured this way.
