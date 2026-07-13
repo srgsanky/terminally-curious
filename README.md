@@ -6,7 +6,7 @@ A Hugo blog for living notes on technical explorations.
 
 ## Prerequisites
 
-- [Hugo Extended](https://gohugo.io/installation/) 0.145.0 or newer
+- [Hugo Extended](https://gohugo.io/installation/) 0.164.0 or newer
 - Git
 
 Clone the theme after checking out the repository:
