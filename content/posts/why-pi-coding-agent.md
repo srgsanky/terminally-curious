@@ -14,7 +14,7 @@ That distinction matters because the model is only one part of the experience. T
 
 Pi has earned a regular place in that rotation. Five qualities account for most of its appeal.
 
-## It is hackable
+## 1. It is hackable
 
 Hackability is a deal breaker for me: if I cannot adapt a harness to my workflow, I will eventually outgrow it. Pi feels closer to Neovim than to an IDE suite because its defaults are useful without fixing its final shape.
 
@@ -28,11 +28,9 @@ Pi provides several extension layers:
 
 These layers let me choose the smallest mechanism that solves the problem instead of turning every customization into a plugin project.
 
-This design keeps policy out of the core. Pi does not ship with built-in plan mode, sub-agents, permission prompts, or MCP integration; those features can be implemented or installed when a workflow needs them. The trade-off is explicit: Pi asks me to assemble some advanced workflows instead of choosing their behavior for me.
-
 This is more than a preference. Hackability turns an awkward workflow into a changeable interface rather than a permanent constraint, which is why I consider it a requirement even when I never write an extension.
 
-## `/tree` makes exploration reversible
+## 2. `/tree` makes exploration reversible
 
 Coding conversations rarely follow a straight line. A proposed fix can fail, a requirement can change, or an earlier answer can reveal a better direction.
 
@@ -42,15 +40,22 @@ The visual selector makes branching approachable because I do not need to rememb
 
 Pi also provides `/fork` and `/clone` when branches should become separate session files. I use `/tree` for alternatives within one investigation and reserve separate sessions for work that should evolve independently.
 
-## Sessions are easy to export and share
+## 3. Sessions are easy to export and share
 
 Agent sessions contain useful decisions, failed approaches, tool output, and the reasoning that connects a request to the resulting code. Pi makes that record easy to preserve or hand to someone else.
 
 [`/export [file]`](https://github.com/earendil-works/pi-mono/blob/main/packages/coding-agent/docs/usage.md#exporting-and-sharing-sessions) writes the session as a local HTML file that I can archive or open in a browser. `/share` exports the same HTML, uploads it through the authenticated GitHub CLI as a secret Gist, and returns a link that renders the session at `pi.dev`.
 
+<figure style="max-width:400px;margin:1rem auto;">
+  <a href="https://pi.dev/session/#0ea51497613daf7e1de28ee99950b074">
+    <img src="shared-session.png" alt="A shared Pi session rendered on pi.dev, with the session tree on the left and conversation details on the right" loading="lazy" style="display:block;width:100%;height:auto;">
+  </a>
+  <figcaption style="font-size:0.9rem;margin-top:0.35rem;">An <a href="https://pi.dev/session/#0ea51497613daf7e1de28ee99950b074">example shared session</a> rendered on <code>pi.dev</code>. The left panel provides a searchable session tree; the right panel shows session metadata, prompts, tools, messages, and results.</figcaption>
+</figure>
+
 A secret Gist is unlisted, not private or access-controlled. Anyone with the URL can read it, so I treat `/share` as convenient publishing rather than secure sharing and review the session for source code, credentials, personal data, and other sensitive content first.
 
-## The default context stays focused
+## 4. The default context stays focused
 
 Every harness adds material before the model sees my request: system instructions, tool schemas, project guidance, skill descriptions, conversation history, and tool results. That material consumes the same finite context window needed for the code and the current problem.
 
@@ -60,13 +65,24 @@ In my use so far, Pi sessions grow slowly enough that I rarely reach automatic c
 
 A smaller context does not guarantee a better answer, and a required tool is worth its schema and output. The benefit is budget discipline: context is spent on the current task instead of integrations I am not using.
 
-## It feels fast
+## 5. It feels fast
 
 Pi is consistently responsive in my day-to-day use, especially for quick questions, small edits, and iterative touch-ups. Its minimal startup and default integration surface remove setup and UI friction before useful work begins.
 
 This is an observation, not a benchmark. Provider latency, model load, network conditions, prompt caching, reasoning level, and context size all affect response time. Pi cannot make a model intrinsically faster, but it can keep the path between my prompt and the model short.
 
 That perceived speed changes my behavior. I open Pi for small tasks that would not justify waiting for a heavier environment, and those small interactions are a large part of how I use coding agents.
+
+## Minimalism leaves out useful defaults
+
+Pi's [minimal-core philosophy](https://github.com/earendil-works/pi-mono/tree/main/packages/coding-agent#philosophy) keeps context and policy under control, but hackability does not erase the cost of assembling missing workflows:
+
+- **No built-in MCP:** Pi favors CLI tools documented with READMEs and exposed through [skills](https://github.com/earendil-works/pi-mono/blob/main/packages/coding-agent/docs/skills.md). MCP support requires an extension; the creator explains the rationale in [What if you don't need MCP?](https://mariozechner.at/posts/2025-11-02-what-if-you-dont-need-mcp/).
+- **No built-in sub-agents:** Parallel or delegated work requires separate Pi processes—often managed with [tmux](https://github.com/earendil-works/pi-mono/blob/main/packages/coding-agent/docs/tmux.md)—a custom extension, or a third-party package.
+- **No permission popups:** Tool calls run without per-action approval by default. Isolation requires a [container](https://github.com/earendil-works/pi-mono/blob/main/packages/coding-agent/docs/containerization.md), while confirmation prompts and path protections require extensions. Pi's project-trust prompt controls whether project-local configuration loads; it does not approve individual commands.
+- **No built-in plan mode:** Plans must live in files, or plan mode must come from an extension or package.
+
+These omissions are intentional, but they are also one reason I continue to use other harnesses. When I need one of these workflows immediately, a built-in implementation can be more useful than the freedom to construct my own.
 
 ## Where Pi fits
 
