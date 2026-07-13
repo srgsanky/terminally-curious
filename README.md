@@ -57,7 +57,13 @@ hugo --gc --minify
 
 Push to `main`. The workflow in `.github/workflows/hugo.yaml` builds the site and deploys it with GitHub Pages.
 
-For the repository's first deployment, open **Settings → Pages** on GitHub and set **Source** to **GitHub Actions**. The published site uses the repository URL shown above.
+For the repository's first deployment:
+
+1. Open the repository on GitHub.
+2. Go to **Settings → Pages**.
+3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+
+Check the repository's **Actions** tab for deployment progress. After the first deployment, pushes to `main` publish automatically with no further manual steps. The published site uses the repository URL shown above.
 
 ## Living documents
 
