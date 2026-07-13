@@ -59,7 +59,10 @@ Do not remove the file if it points into Homebrew's `Caskroom`.
 
 ## Install the Homebrew cask
 
+Refresh Homebrew's metadata before installing the cask:
+
 ```bash
+brew update
 brew install --cask codex
 ```
 
@@ -97,9 +100,10 @@ If this prints a version, Codex no longer depends on NVM or Node.js being loaded
 
 ## Upgrade Codex
 
-Keep Homebrew as the sole owner of the installation:
+Refresh Homebrew's metadata, then upgrade the cask:
 
 ```bash
+brew update
 brew upgrade --cask codex
 ```
 
