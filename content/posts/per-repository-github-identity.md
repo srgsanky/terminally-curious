@@ -1,7 +1,7 @@
 +++
 date = '2026-07-12T17:32:00-07:00'
 draft = false
-title = 'Use a Personal GitHub Identity in One Repository'
+title = 'Configure a Repository-Specific GitHub Identity'
 description = 'Keep a machine-wide work identity while giving selected Git repositories a separate commit identity and SSH key.'
 tags = ['git', 'github', 'ssh', 'zsh', 'macos']
 categories = ['tools']
