@@ -1,0 +1,50 @@
+baseURL = 'https://srgsanky.github.io/terminally-curious/'
+languageCode = 'en-us'
+title = 'Terminally Curious'
+theme = 'hugo-dead-simple'
+enableGitInfo = true
+enableRobotsTXT = true
+
+[params]
+description = 'Living field notes on agents, programming languages, architecture, and systems.'
+noSearch = false
+
+[menus]
+[[menus.main]]
+name = '<u>H</u>ome'
+url = './'
+weight = 1
+
+[[menus.main]]
+name = '<u>W</u>riting'
+url = 'posts/'
+weight = 2
+
+[[menus.main]]
+name = '<u>T</u>ags'
+url = 'tags/'
+weight = 3
+
+[taxonomies]
+category = 'categories'
+tag = 'tags'
+
+[markup]
+[markup.highlight]
+codeFences = true
+style = 'bw'
+lineNumbersInTable = false
+noClasses = false
+
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 3
+ordered = true
+
+[outputs]
+home = ['html', 'rss', 'json']
+page = ['html']
