@@ -67,33 +67,22 @@ Save it as `~/.local/bin/keyenv-run` (or another location in `PATH`):
 #!/bin/bash
 set -euo pipefail
 
-usage() {
-  echo "Usage: keyenv-run ENV_NAME=KEY -- COMMAND [ARGS...]" >&2
+fail() {
+  printf '%s\n' "$1" >&2
   exit 2
 }
 
-[[ $# -ge 3 ]] || usage
+if (( $# < 3 )) || [[ $1 != *=* || $2 != -- ]]; then
+  fail "Usage: keyenv-run ENV_NAME=KEY -- COMMAND [ARGS...]"
+fi
 
-mapping=$1
-shift
+env_name=${1%%=*}
+key=${1#*=}
+shift 2
 
-[[ "$mapping" == *=* ]] || usage
-[[ "$1" == "--" ]] || usage
-shift
-[[ $# -gt 0 ]] || usage
-
-env_name=${mapping%%=*}
-key=${mapping#*=}
-
-[[ "$env_name" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || {
-  echo "Invalid environment variable name: $env_name" >&2
-  exit 2
-}
-
-[[ "$key" =~ ^[A-Za-z0-9._-]+$ ]] || {
-  echo "Invalid secret key: $key" >&2
-  exit 2
-}
+[[ $env_name =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] ||
+  fail "Invalid environment variable name: $env_name"
+[[ $key =~ ^[A-Za-z0-9._-]+$ ]] || fail "Invalid secret key: $key"
 
 secret=$(
   /usr/bin/security find-generic-password \
@@ -102,11 +91,9 @@ secret=$(
     -w
 )
 
-# These are shell builtins, so the token is not an argument to `env`.
-printf -v "$env_name" '%s' "$secret"
-export "$env_name"
+# `export` is a shell builtin, so the token does not enter an argument list.
+export "$env_name=$secret"
 unset secret
-
 exec "$@"
 ```
 
