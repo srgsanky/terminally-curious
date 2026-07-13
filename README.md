@@ -39,6 +39,12 @@ Include drafts while writing:
 hugo server --buildDrafts
 ```
 
+Hugo excludes future-dated posts even when drafts are enabled. To preview drafts and future content, add `--buildFuture` (or `-F`):
+
+```bash
+hugo server --buildDrafts --buildFuture
+```
+
 The local URL is normally <http://localhost:1313/terminally-curious/>.
 
 Before publishing, verify the production build:

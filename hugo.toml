@@ -1,5 +1,5 @@
 baseURL = 'https://srgsanky.github.io/terminally-curious/'
-languageCode = 'en-us'
+locale = 'en-US'
 title = 'Terminally Curious'
 theme = 'hugo-dead-simple'
 enableGitInfo = true
