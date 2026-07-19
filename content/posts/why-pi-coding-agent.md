@@ -106,3 +106,15 @@ These two videos helped me understand both the intent behind Pi and the enthusia
     <figcaption style="font-size:0.9rem;margin-top:0.35rem;"><strong>A love letter to Pi:</strong> <a href="https://www.youtube.com/watch?v=fdbXNWkpPMY">Lucas Meijer</a></figcaption>
   </figure>
 </div>
+
+## Handy keybindings
+
+A few default shortcuts make Pi especially quick to steer:
+
+- `Ctrl+P` cycles to the next model.
+- `Shift+Tab` cycles through the available thinking levels.
+- `Ctrl+T` shows or hides thinking blocks.
+- `Ctrl+G` opens the current message in an external editor such as Neovim.
+- `Ctrl+X` copies the last assistant message.
+
+Keybindings are customizable, so `/hotkeys` shows the shortcuts currently active in the session. The complete list of defaults and configuration options is in Pi's [keybindings documentation](https://github.com/earendil-works/pi-mono/blob/main/packages/coding-agent/docs/keybindings.md).
