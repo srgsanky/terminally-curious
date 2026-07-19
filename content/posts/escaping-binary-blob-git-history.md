@@ -35,6 +35,32 @@ git filter-repo --analyze
 
 The generated reports identify large paths, blob sizes, and accumulated history. This matters because ordinary `git gc` only repacks reachable objects; it cannot remove large blobs that commits still reference.
 
+## Staging can grow `.git` even without a commit
+
+`git add` writes file contents to the Git object database immediately; it does not wait for a commit. Staging a large generated binary, such as a SQLite database, can therefore create a large object—or a pack containing it—under `.git/objects`.
+
+If the file is later unstaged or reset, or if the operation is interrupted, the new object may become unreachable while remaining on disk. Repeatedly staging a changing database can accumulate multiple nearly full-sized objects because these binary changes often delta-compress poorly.
+
+Prevent this local bloat by ignoring generated binary data before staging it:
+
+```gitignore
+/data/raw/*.db*
+```
+
+Avoid broad commands such as `git add .` when large generated files are present; stage specific paths instead. To remove accumulated unreachable objects, first ensure no other Git process is operating on the repository and that no dangling objects contain work you need, then run:
+
+```bash
+git gc --prune=now
+```
+
+If an interrupted operation leaves `tmp_pack_*` files, ensure no Git process is running before removing them:
+
+```bash
+rm -f .git/objects/pack/tmp_pack_*
+```
+
+Garbage collection can remove only unreachable objects. Blobs referenced by commits require a history rewrite or another strategy described below. For large binaries that genuinely require versioning, use Git LFS or external artifact storage rather than regular Git objects.
+
 ## First, stop the growth
 
 Move future binary assets to storage designed for them:
