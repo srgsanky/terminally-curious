@@ -107,6 +107,24 @@ These two videos helped me understand both the intent behind Pi and the enthusia
   </figure>
 </div>
 
+## Handy command-line options
+
+Three options cover most of my launches beyond plain `pi`:
+
+| Option | Use |
+|--------|-----|
+| `--print`, `-p` | Run non-interactively, print the response, and exit. |
+| `--continue`, `-c` | Continue the most recent session for the current working directory. |
+| `--resume`, `-r` | Open the session picker to choose a previous session for the current working directory. |
+
+Print mode is especially useful for a quick, self-contained question that does not need an interactive session:
+
+```bash
+pi -p 'Can you help answer a question?'
+```
+
+When returning to work in a project, use `pi -c` if the latest session is the right one or `pi -r` to choose among earlier sessions. Pi organizes saved sessions by working directory, so run either command from the directory whose conversation you want to continue.
+
 ## Handy keybindings
 
 A few default shortcuts make Pi especially quick to steer:
