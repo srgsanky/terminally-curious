@@ -1,0 +1,74 @@
+/* Reference numbers for post blocks.
+   Numbers are attached to semantic blocks (paragraph, heading, list item,
+   code block, quote, table), not to visually wrapped lines, so number 12
+   points at the same sentence on a phone and on a desktop.
+
+   Every number is absolutely positioned against <main>, which is the only
+   positioned ancestor. With `top` left auto each number keeps the static
+   position of its block, while `left` resolves against <main>, so the whole
+   set lines up in one gutter regardless of list nesting or block padding. */
+
+.with-line-numbers main {
+  position: relative;
+}
+
+.lineno {
+  position: absolute;
+  left: -3.1rem;
+  width: 2.2rem;
+  text-align: right;
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.72rem;
+  line-height: 1.9;
+  color: var(--text-dim);
+  opacity: 0.4;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Keep a linked block clear of the top edge when it is jumped to. */
+  scroll-margin-top: 2rem;
+}
+
+.lineno:visited {
+  color: var(--text-dim);
+}
+
+.lineno:hover,
+.lineno:focus {
+  opacity: 1;
+  color: var(--complimentary);
+  text-decoration: none;
+}
+
+/* The block a #L<n> link points at. */
+.lineno-target {
+  background-color: var(--code-hl);
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.3rem var(--code-hl);
+}
+
+.lineno-target > .lineno {
+  opacity: 1;
+  color: var(--complimentary);
+}
+
+/* No gutter to spare on narrow screens, so borrow a strip of padding from main
+   and sit inside it. `left` resolves against main's padding box, whose origin
+   does not move when that padding is added, so the offset here is positive. */
+@media screen and (max-width: 900px) {
+  .with-line-numbers main {
+    padding-left: 2.6rem;
+  }
+
+  .lineno {
+    left: 0.1rem;
+    width: 1.8rem;
+    font-size: 0.68rem;
+  }
+}
+
+@media print {
+  .lineno {
+    opacity: 1;
+  }
+}

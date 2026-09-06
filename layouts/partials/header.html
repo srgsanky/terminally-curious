@@ -1,3 +1,6 @@
+{{/* Reference numbers are on for every single page unless a post opts out
+     with `linenumbers = false` in its front matter. */}}
+{{ $lineNumbers := and (eq .Kind "page") (ne .Params.linenumbers false) }}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Locale }}">
   <head>
@@ -58,8 +61,14 @@
         (resources.Get "css/code.css")
         (resources.Get "css/tables.css")
         (resources.Get "css/misc.css")
+        (resources.Get "css/line_numbers.css")
     | resources.Concat "style.css" | minify | fingerprint }}
     <link rel="stylesheet" type="text/css" href="{{ $CSS.RelPermalink }}" media="all">
+
+    {{ if $lineNumbers }}
+      {{ $lineNumbersJS := resources.Get "js/line_numbers.js" | minify | fingerprint }}
+      <script defer src="{{ $lineNumbersJS.RelPermalink }}" integrity="{{ $lineNumbersJS.Data.Integrity }}"></script>
+    {{ end }}
 
     {{ $noop := .WordCount }}
     {{ if .Page.Store.Get "hasMath" }}
@@ -78,7 +87,7 @@
 
   </head>
 
-  <body>
+  <body{{ if $lineNumbers }} class="with-line-numbers"{{ end }}>
         {{ if not .Params.nomenu }}
         <nav>
           <ul class="menu">
