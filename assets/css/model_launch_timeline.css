@@ -1,0 +1,135 @@
+.model-launch-timeline {
+  --launch-openai: #2768b7;
+  --launch-anthropic: #b85b0b;
+  --launch-google: #248346;
+  text-align: left;
+}
+
+@media (prefers-color-scheme: dark) {
+  .model-launch-timeline {
+    --launch-openai: #83baff;
+    --launch-anthropic: #f5a260;
+    --launch-google: #74d58b;
+  }
+}
+
+.model-launch-timeline [hidden] {
+  display: none;
+}
+
+.model-launch-updated,
+.model-launch-help {
+  color: var(--text-dim);
+  font-size: 0.875rem;
+}
+
+.model-launch-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+
+.model-launch-key {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 6px;
+  background: var(--launch-openai);
+}
+
+.model-launch-key.anthropic {
+  background: var(--launch-anthropic);
+  border-radius: 50%;
+}
+
+.model-launch-key.google {
+  background: var(--launch-google);
+  transform: rotate(45deg);
+}
+
+.model-launch-scroll {
+  overflow-x: auto;
+}
+
+.model-launch-strips {
+  min-width: 280px;
+}
+
+.model-launch-year {
+  margin: 1rem 0 1.5rem;
+}
+
+.model-launch-year h3 {
+  margin: 0 0 0.25rem;
+}
+
+.model-launch-year svg {
+  display: block;
+  width: 100%;
+}
+
+.model-launch-year svg text {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.model-launch-year .launch-axis {
+  fill: var(--text-dim);
+}
+
+.model-launch-year .launch-structure {
+  fill: none;
+  stroke: var(--border-general);
+  stroke-width: 1;
+}
+
+.model-launch-year a:hover text,
+.model-launch-year a:focus text {
+  text-decoration: underline;
+}
+
+.model-launch-year .launch-marker {
+  cursor: pointer;
+}
+
+.model-launch-year .launch-marker:focus-visible {
+  outline: 2px solid var(--link);
+}
+
+.model-launch-sources summary {
+  cursor: pointer;
+}
+
+.model-launch-sources table {
+  margin-top: 0.75rem;
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.model-launch-sources caption {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+.model-launch-sources td {
+  vertical-align: top;
+}
+
+.model-launch-sources time {
+  white-space: nowrap;
+}
+
+.model-launch-tooltip {
+  position: fixed;
+  z-index: 10;
+  box-sizing: border-box;
+  max-width: min(22rem, calc(100vw - 16px));
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-general);
+  border-radius: 6px;
+  background: var(--background);
+  color: var(--text);
+  font-size: 0.875rem;
+  pointer-events: none;
+}

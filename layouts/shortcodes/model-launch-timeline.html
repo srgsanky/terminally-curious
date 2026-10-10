@@ -1,0 +1,57 @@
+{{- $resource := .Page.Resources.Get "launches.json" -}}
+{{- if not $resource -}}
+  {{- errorf "model-launch-timeline requires launches.json in the page bundle: %s" .Page.File.Path -}}
+{{- else -}}
+  {{- $data := $resource | transform.Unmarshal -}}
+  {{- $datePattern := `^[0-9]{4}-[0-9]{2}-[0-9]{2}$` -}}
+  {{- if not (findRE $datePattern $data.asOf) -}}
+    {{- errorf "model-launch-timeline requires asOf in YYYY-MM-DD format: %s" .Page.File.Path -}}
+  {{- end -}}
+  {{- $asOf := time.AsTime $data.asOf -}}
+  {{- if not $data.events -}}
+    {{- errorf "model-launch-timeline requires at least one launch: %s" .Page.File.Path -}}
+  {{- end -}}
+  {{- range $data.events -}}
+    {{- $date := time.AsTime .date -}}
+    {{- if or (not (findRE $datePattern .date)) (gt $date $asOf) (not (in (slice "OpenAI" "Anthropic" "Google") .company)) (not .label) (not .detail) (not (strings.HasPrefix .url "https://")) -}}
+      {{- errorf "Invalid model launch in %s: %v" $.Page.File.Path . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $css := resources.Get "css/model_launch_timeline.css" | minify | fingerprint -}}
+  {{- $js := resources.Get "js/model_launch_timeline.js" | minify | fingerprint -}}
+  {{- $id := printf "model-launch-timeline-%d" .Ordinal -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<div class="model-launch-timeline" id="{{ $id }}" data-as-of="{{ $data.asOf }}">
+  <p class="model-launch-updated">Last updated: <time datetime="{{ $data.asOf }}">{{ $asOf.Format "January 2, 2006" }}</time></p>
+  <div class="model-launch-chart" hidden>
+    <div class="model-launch-legend" aria-label="Providers">
+      <span><span class="model-launch-key openai" aria-hidden="true"></span>OpenAI</span>
+      <span><span class="model-launch-key anthropic" aria-hidden="true"></span>Anthropic</span>
+      <span><span class="model-launch-key google" aria-hidden="true"></span>Google Gemini</span>
+    </div>
+    <p class="model-launch-help">Hover or focus for dates. Tap a marker for details; select a label for its source.</p>
+    <div class="model-launch-scroll"><div class="model-launch-strips"></div></div>
+  </div>
+  <details class="model-launch-sources" open>
+    <summary>Launch dates and sources ({{ len $data.events }} entries)</summary>
+    <div class="model-launch-scroll">
+      <table>
+        <caption>Selected language and reasoning model launches</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Provider</th><th scope="col">Model / source</th><th scope="col">Rollout notes</th></tr></thead>
+        <tbody>
+          {{- range sort $data.events "date" "asc" }}
+          <tr data-date="{{ .date }}" data-company="{{ .company }}">
+            <td><time datetime="{{ .date }}">{{ (time.AsTime .date).Format "Jan 2, 2006" }}</time></td>
+            <td>{{ if eq .company "Google" }}Google Gemini{{ else }}{{ .company }}{{ end }}</td>
+            <td><a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .label }}</a></td>
+            <td class="model-launch-detail">{{ .detail }}</td>
+          </tr>
+          {{- end }}
+        </tbody>
+      </table>
+    </div>
+  </details>
+  <div class="model-launch-tooltip" id="{{ $id }}-tooltip" role="tooltip" hidden></div>
+</div>
+<script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{- end -}}

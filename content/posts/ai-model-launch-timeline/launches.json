@@ -1,0 +1,446 @@
+{
+  "asOf": "2026-10-10",
+  "events": [
+    {
+      "date": "2022-11-30",
+      "company": "OpenAI",
+      "label": "GPT-3.5 / ChatGPT",
+      "url": "https://openai.com/index/chatgpt/",
+      "detail": "ChatGPT research preview, powered by GPT-3.5."
+    },
+    {
+      "date": "2023-03-14",
+      "company": "Anthropic",
+      "label": "Claude",
+      "url": "https://www.anthropic.com/news/introducing-claude",
+      "detail": "Initial Claude launch."
+    },
+    {
+      "date": "2023-03-14",
+      "company": "OpenAI",
+      "label": "GPT-4",
+      "url": "https://openai.com/index/gpt-4-research/",
+      "detail": "Initial GPT-4 launch."
+    },
+    {
+      "date": "2023-07-11",
+      "company": "Anthropic",
+      "label": "Claude 2",
+      "url": "https://www.anthropic.com/news/claude-2",
+      "detail": "Claude 2 and claude.ai beta."
+    },
+    {
+      "date": "2023-11-06",
+      "company": "OpenAI",
+      "label": "GPT-4 Turbo",
+      "url": "https://openai.com/index/new-models-and-developer-products-announced-at-devday/",
+      "detail": "API preview."
+    },
+    {
+      "date": "2023-11-21",
+      "company": "Anthropic",
+      "label": "Claude 2.1",
+      "url": "https://www.anthropic.com/news/claude-2-1",
+      "detail": "Claude 2.1 launch."
+    },
+    {
+      "date": "2023-12-06",
+      "company": "Google",
+      "label": "1.0 Pro / Nano",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/google-gemini-ai/",
+      "detail": "Gemini 1.0 announced. Pro available in Bard and Nano on Pixel; Ultra announced for later availability."
+    },
+    {
+      "date": "2024-02-08",
+      "company": "Google",
+      "label": "1.0 Ultra",
+      "url": "https://blog.google/intl/es-419/actualizaciones-de-producto/informacion/bard-se-convierte-en-gemini-ultra-10-y-una-nueva-aplicacion-movil/",
+      "detail": "Gemini 1.0 Ultra available through Gemini Advanced."
+    },
+    {
+      "date": "2024-02-15",
+      "company": "Google",
+      "label": "1.5 Pro preview",
+      "url": "https://blog.google/innovation-and-ai/products/google-gemini-next-generation-model-february-2024/",
+      "detail": "Gemini 1.5 Pro in limited developer preview."
+    },
+    {
+      "date": "2024-03-04",
+      "company": "Anthropic",
+      "label": "Claude 3",
+      "url": "https://www.anthropic.com/news/claude-3-family",
+      "detail": "Opus and Sonnet available; Haiku announced and released later in March."
+    },
+    {
+      "date": "2024-05-13",
+      "company": "OpenAI",
+      "label": "GPT-4o",
+      "url": "https://openai.com/index/hello-gpt-4o/",
+      "detail": "Initial multimodal model launch; capabilities rolled out in stages."
+    },
+    {
+      "date": "2024-05-14",
+      "company": "Google",
+      "label": "1.5 Flash preview",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-gemma-developer-updates-may-2024/",
+      "detail": "Gemini 1.5 Flash public preview."
+    },
+    {
+      "date": "2024-06-20",
+      "company": "Anthropic",
+      "label": "3.5 Sonnet",
+      "url": "https://cloud.google.com/blog/products/ai-machine-learning/announcing-anthropics-claude-3-5-sonnet-on-vertex-ai-providing-more-choice-for-enterprises/",
+      "detail": "Claude 3.5 Sonnet initial availability; date verified against Google Cloud launch announcement."
+    },
+    {
+      "date": "2024-07-18",
+      "company": "OpenAI",
+      "label": "GPT-4o mini",
+      "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/",
+      "detail": "Small model launch."
+    },
+    {
+      "date": "2024-09-12",
+      "company": "OpenAI",
+      "label": "o1 preview + mini",
+      "url": "https://openai.com/index/introducing-openai-o1-preview/",
+      "detail": "Reasoning-model preview and o1-mini."
+    },
+    {
+      "date": "2024-12-05",
+      "company": "OpenAI",
+      "label": "o1",
+      "url": "https://openai.com/index/introducing-chatgpt-pro/",
+      "detail": "Full o1 release in ChatGPT."
+    },
+    {
+      "date": "2024-12-11",
+      "company": "Google",
+      "label": "2.0 Flash exp.",
+      "url": "https://developers.googleblog.com/the-next-chapter-of-the-gemini-era-for-developers/",
+      "detail": "Gemini 2.0 Flash experimental preview; stable release followed February 5, 2025."
+    },
+    {
+      "date": "2024-12-19",
+      "company": "Google",
+      "label": "2.0 Flash Thinking",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "detail": "Gemini 2.0 Flash Thinking public preview."
+    },
+    {
+      "date": "2025-01-31",
+      "company": "OpenAI",
+      "label": "o3-mini",
+      "url": "https://openai.com/index/openai-o3-mini/",
+      "detail": "Small reasoning model."
+    },
+    {
+      "date": "2025-02-05",
+      "company": "Google",
+      "label": "2.0 Pro / Lite",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "detail": "Gemini 2.0 Pro experimental and Flash-Lite preview; 2.0 Flash also became generally available."
+    },
+    {
+      "date": "2025-02-24",
+      "company": "Anthropic",
+      "label": "3.7 Sonnet",
+      "url": "https://www.anthropic.com/news/claude-3-7-sonnet",
+      "detail": "Claude 3.7 Sonnet launch."
+    },
+    {
+      "date": "2025-02-27",
+      "company": "OpenAI",
+      "label": "GPT-4.5 preview",
+      "url": "https://openai.com/index/introducing-gpt-4-5/",
+      "detail": "Research preview."
+    },
+    {
+      "date": "2025-03-25",
+      "company": "Google",
+      "label": "2.5 Pro exp.",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-model-thinking-updates-march-2025/",
+      "detail": "Gemini 2.5 Pro experimental launch; stable release followed June 17."
+    },
+    {
+      "date": "2025-04-14",
+      "company": "OpenAI",
+      "label": "GPT-4.1 family",
+      "url": "https://openai.com/index/gpt-4-1/",
+      "detail": "GPT-4.1, mini and nano launch in the API."
+    },
+    {
+      "date": "2025-04-16",
+      "company": "OpenAI",
+      "label": "o3 + o4-mini",
+      "url": "https://openai.com/index/introducing-o3-and-o4-mini/",
+      "detail": "ChatGPT and API release."
+    },
+    {
+      "date": "2025-04-17",
+      "company": "Google",
+      "label": "2.5 Flash preview",
+      "url": "https://blog.google/products-and-platforms/products/gemini/gemini-2-5-flash-preview/",
+      "detail": "Gemini 2.5 Flash preview; stable release followed June 17."
+    },
+    {
+      "date": "2025-05-22",
+      "company": "Anthropic",
+      "label": "Claude 4",
+      "url": "https://www.anthropic.com/news/claude-4",
+      "detail": "Claude Opus 4 and Sonnet 4."
+    },
+    {
+      "date": "2025-06-17",
+      "company": "Google",
+      "label": "2.5 Flash-Lite",
+      "url": "https://blog.google/products-and-platforms/products/gemini/gemini-2-5-model-family-expands/",
+      "detail": "Gemini 2.5 Flash-Lite preview; stable release followed July 22. Pro and Flash also became stable."
+    },
+    {
+      "date": "2025-08-05",
+      "company": "Anthropic",
+      "label": "Opus 4.1",
+      "url": "https://www.anthropic.com/news/claude-opus-4-1",
+      "detail": "Claude Opus 4.1."
+    },
+    {
+      "date": "2025-08-07",
+      "company": "OpenAI",
+      "label": "GPT-5 family",
+      "url": "https://openai.com/index/introducing-gpt-5/",
+      "detail": "GPT-5 launch; mini and nano also available in the API."
+    },
+    {
+      "date": "2025-09-29",
+      "company": "Anthropic",
+      "label": "Sonnet 4.5",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "detail": "Claude Sonnet 4.5."
+    },
+    {
+      "date": "2025-10-15",
+      "company": "Anthropic",
+      "label": "Haiku 4.5",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "detail": "Claude Haiku 4.5."
+    },
+    {
+      "date": "2025-11-12",
+      "company": "OpenAI",
+      "label": "GPT-5.1",
+      "url": "https://openai.com/index/gpt-5-1/",
+      "detail": "Initial ChatGPT rollout; API release followed November 13."
+    },
+    {
+      "date": "2025-11-18",
+      "company": "Google",
+      "label": "3 Pro preview",
+      "url": "https://blog.google/products-and-platforms/products/gemini/gemini-3/",
+      "detail": "Gemini 3 Pro preview launch."
+    },
+    {
+      "date": "2025-11-24",
+      "company": "Anthropic",
+      "label": "Opus 4.5",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Claude Opus 4.5."
+    },
+    {
+      "date": "2025-12-11",
+      "company": "OpenAI",
+      "label": "GPT-5.2",
+      "url": "https://openai.com/index/introducing-gpt-5-2/",
+      "detail": "GPT-5.2 launch."
+    },
+    {
+      "date": "2025-12-17",
+      "company": "Google",
+      "label": "3 Flash preview",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "detail": "Gemini 3 Flash preview launch."
+    },
+    {
+      "date": "2026-02-05",
+      "company": "Anthropic",
+      "label": "Opus 4.6",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Claude Opus 4.6."
+    },
+    {
+      "date": "2026-02-17",
+      "company": "Anthropic",
+      "label": "Sonnet 4.6",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Claude Sonnet 4.6."
+    },
+    {
+      "date": "2026-02-19",
+      "company": "Google",
+      "label": "3.1 Pro preview",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/",
+      "detail": "Gemini 3.1 Pro preview launch."
+    },
+    {
+      "date": "2026-03-03",
+      "company": "Google",
+      "label": "3.1 Flash-Lite",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "detail": "Gemini 3.1 Flash-Lite preview."
+    },
+    {
+      "date": "2026-03-03",
+      "company": "OpenAI",
+      "label": "GPT-5.3 Instant",
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "detail": "GPT-5.3 Instant API availability."
+    },
+    {
+      "date": "2026-03-05",
+      "company": "OpenAI",
+      "label": "GPT-5.4",
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "detail": "GPT-5.4 and GPT-5.4 Pro."
+    },
+    {
+      "date": "2026-03-17",
+      "company": "OpenAI",
+      "label": "5.4 mini + nano",
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "detail": "GPT-5.4 mini and nano API launch."
+    },
+    {
+      "date": "2026-04-07",
+      "company": "Anthropic",
+      "label": "Mythos preview",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Claude Mythos Preview: invitation-only defensive cybersecurity research preview."
+    },
+    {
+      "date": "2026-04-16",
+      "company": "Anthropic",
+      "label": "Opus 4.7",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Claude Opus 4.7."
+    },
+    {
+      "date": "2026-04-23",
+      "company": "OpenAI",
+      "label": "GPT-5.5",
+      "url": "https://openai.com/index/introducing-gpt-5-5/",
+      "detail": "Initial launch; API release followed April 24."
+    },
+    {
+      "date": "2026-05-19",
+      "company": "Google",
+      "label": "3.5 Flash",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/",
+      "detail": "Gemini 3.5 Flash generally available."
+    },
+    {
+      "date": "2026-05-28",
+      "company": "Anthropic",
+      "label": "Opus 4.8",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Claude Opus 4.8."
+    },
+    {
+      "date": "2026-06-09",
+      "company": "Anthropic",
+      "label": "Fable 5 / Mythos 5",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Fable 5 launched for customers; Mythos 5 restricted to Project Glasswing participants."
+    },
+    {
+      "date": "2026-06-30",
+      "company": "Anthropic",
+      "label": "Sonnet 5",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Claude Sonnet 5."
+    },
+    {
+      "date": "2026-07-09",
+      "company": "OpenAI",
+      "label": "GPT-5.6",
+      "url": "https://openai.com/index/gpt-5-6/",
+      "detail": "GPT-5.6 launch; an earlier preview appeared June 26."
+    },
+    {
+      "date": "2026-07-21",
+      "company": "Google",
+      "label": "3.6 Flash / 3.5 Lite",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/",
+      "detail": "Gemini 3.6 Flash and 3.5 Flash-Lite generally available; 3.5 Flash Cyber introduced with restricted access."
+    },
+    {
+      "date": "2026-07-24",
+      "company": "Anthropic",
+      "label": "Opus 5",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Claude Opus 5."
+    },
+    {
+      "date": "2026-08-13",
+      "company": "Google",
+      "label": "3.7 Flash",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
+      "detail": "Gemini 3.7 Flash generally available."
+    },
+    {
+      "date": "2026-09-01",
+      "company": "Anthropic",
+      "label": "Fable / Mythos 5.1",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "detail": "Fable 5.1 available to customers; Mythos 5.1 restricted to Project Glasswing participants."
+    },
+    {
+      "date": "2026-09-02",
+      "company": "Google",
+      "label": "3.8 Flash",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/",
+      "detail": "Gemini 3.8 Flash generally available; Flash Cyber also introduced."
+    },
+    {
+      "date": "2026-09-03",
+      "company": "OpenAI",
+      "label": "GPT-6 Astra",
+      "url": "https://openai.com/index/gpt-6-astra/",
+      "detail": "Initial GPT-6 Astra launch."
+    },
+    {
+      "date": "2026-09-22",
+      "company": "Anthropic",
+      "label": "Opus 5.5",
+      "url": "https://www.anthropic.com/claude-opus-5-5",
+      "detail": "Claude Opus 5.5."
+    },
+    {
+      "date": "2026-09-22",
+      "company": "OpenAI",
+      "label": "GPT-6 Sol / Luna",
+      "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+      "detail": "GPT-6 Sol and Luna."
+    },
+    {
+      "date": "2026-09-28",
+      "company": "Anthropic",
+      "label": "Sonnet 5.5",
+      "url": "https://www.anthropic.com/claude-sonnet-5-5",
+      "detail": "Claude Sonnet 5.5."
+    },
+    {
+      "date": "2026-09-29",
+      "company": "OpenAI",
+      "label": "GPT-6.1 Sol",
+      "url": "https://openai.com/index/introducing-gpt-6-1-sol/",
+      "detail": "GPT-6.1 Sol."
+    },
+    {
+      "date": "2026-10-07",
+      "company": "Anthropic",
+      "label": "Haiku 5.5",
+      "url": "https://www.anthropic.com/claude-haiku-5-5",
+      "detail": "Claude Haiku 5.5."
+    }
+  ]
+}

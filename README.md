@@ -128,3 +128,15 @@ out of anything copied with the theme's copy button.
 ## Living documents
 
 Posts are expected to change as the underlying exploration develops. With `enableGitInfo` enabled, committed updates are reflected in each post's modified date by the theme.
+
+### Model launch timeline
+
+The living post is at `content/posts/ai-model-launch-timeline/index.md`. Its data is colocated in `content/posts/ai-model-launch-timeline/launches.json`, imported from the supplied HTML timeline.
+
+To refresh it:
+
+1. Add or correct entries in `events`. Each entry has an ISO `date` (`YYYY-MM-DD`), `company` (`OpenAI`, `Anthropic`, or `Google`), `label`, HTTPS source `url`, and rollout `detail`. Prefer launch announcements or provider release logs; distinguish previews, restricted access, and later general availability.
+2. Set `asOf` to the date through which the timeline has been updated. Keep the post's original publication date unchanged.
+3. Run `hugo --gc --minify`, then preview the post on desktop and mobile. Push to `main` to publish as usual.
+
+The `model-launch-timeline` shortcode generates the dates-and-sources table from this JSON. `assets/js/model_launch_timeline.js` progressively enhances that table into a responsive chart; years and the final month's axis are derived automatically. The table remains available without JavaScript. Styling is scoped in `assets/css/model_launch_timeline.css`, and there are no external script dependencies. The build rejects entries dated after `asOf`, unknown providers, missing labels or notes, and non-HTTPS source URLs.
