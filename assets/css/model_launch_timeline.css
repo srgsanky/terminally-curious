@@ -2,6 +2,9 @@
   --launch-openai: #2768b7;
   --launch-anthropic: #b85b0b;
   --launch-google: #248346;
+  --launch-date-width: 4.5rem;
+  --launch-gap: 1.5rem;
+  --launch-axis: calc(var(--launch-date-width) + var(--launch-gap) / 2);
   text-align: left;
 }
 
@@ -13,24 +16,36 @@
   }
 }
 
-.model-launch-timeline [hidden] {
-  display: none;
-}
-
 .model-launch-updated,
 .model-launch-help {
   color: var(--text-dim);
   font-size: 0.875rem;
 }
 
-.model-launch-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
+.model-launch-columns,
+.model-launch-row {
+  display: grid;
+  grid-template-columns: var(--launch-date-width) repeat(3, minmax(0, 1fr));
+  column-gap: var(--launch-gap);
+}
+
+.model-launch-columns {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0.75rem 0;
+  background: var(--background);
+  font-size: 0.875rem;
+}
+
+.model-launch-date-heading,
+.model-launch-date {
+  text-align: right;
 }
 
 .model-launch-key {
   display: inline-block;
+  flex: 0 0 9px;
   width: 9px;
   height: 9px;
   margin-right: 6px;
@@ -47,58 +62,105 @@
   transform: rotate(45deg);
 }
 
-.model-launch-scroll {
-  overflow-x: auto;
+.model-launch-chronology {
+  position: relative;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
 }
 
-.model-launch-strips {
-  min-width: 280px;
+.model-launch-chronology::before {
+  position: absolute;
+  top: 1.5rem;
+  bottom: 1.25rem;
+  left: var(--launch-axis);
+  width: 1px;
+  background: var(--border-general);
+  content: "";
 }
 
 .model-launch-year {
-  margin: 1rem 0 1.5rem;
+  position: relative;
+  padding: 1.25rem 0 0.75rem;
+  border-top: 1px solid var(--border-general);
 }
 
 .model-launch-year h3 {
-  margin: 0 0 0.25rem;
+  width: var(--launch-date-width);
+  margin: 0;
+  font-size: 1.125rem;
+  text-align: right;
 }
 
-.model-launch-year svg {
-  display: block;
-  width: 100%;
+.model-launch-year::before {
+  position: absolute;
+  top: 1.6rem;
+  left: calc(var(--launch-axis) - 5px);
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--text-dim);
+  border-radius: 50%;
+  background: var(--background);
+  content: "";
 }
 
-.model-launch-year svg text {
-  fill: var(--text);
-  font-size: 12px;
-  font-weight: 400;
+.model-launch-row {
+  position: relative;
+  align-items: start;
+  padding-bottom: 1rem;
+  font-size: 0.875rem;
 }
 
-.model-launch-year .launch-axis {
-  fill: var(--text-dim);
+.model-launch-row::before {
+  position: absolute;
+  top: 0.5rem;
+  left: calc(var(--launch-axis) - 2px);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  content: "";
 }
 
-.model-launch-year .launch-structure {
-  fill: none;
-  stroke: var(--border-general);
-  stroke-width: 1;
+.model-launch-date {
+  color: var(--text-dim);
+  white-space: nowrap;
 }
 
-.model-launch-year a:hover text,
-.model-launch-year a:focus text {
-  text-decoration: underline;
+.model-launch-slot {
+  min-width: 0;
 }
 
-.model-launch-year .launch-marker {
-  cursor: pointer;
+.model-launch-entry + .model-launch-entry {
+  margin-top: 0.75rem;
 }
 
-.model-launch-year .launch-marker:focus-visible {
-  outline: 2px solid var(--link);
+.model-launch-model {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.model-launch-model .model-launch-key {
+  margin: 0;
+}
+
+.model-launch-model a {
+  overflow-wrap: anywhere;
+}
+
+.model-launch-provider {
+  display: none;
+  color: var(--text-dim);
+  font-size: 0.75rem;
 }
 
 .model-launch-sources summary {
   cursor: pointer;
+}
+
+.model-launch-scroll {
+  overflow-x: auto;
 }
 
 .model-launch-sources table {
@@ -120,16 +182,32 @@
   white-space: nowrap;
 }
 
-.model-launch-tooltip {
-  position: fixed;
-  z-index: 10;
-  box-sizing: border-box;
-  max-width: min(22rem, calc(100vw - 16px));
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--border-general);
-  border-radius: 6px;
-  background: var(--background);
-  color: var(--text);
-  font-size: 0.875rem;
-  pointer-events: none;
+@media (max-width: 900px) {
+  .model-launch-columns {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+
+  .model-launch-date-heading {
+    display: none;
+  }
+
+  .model-launch-row {
+    grid-template-columns: var(--launch-date-width) minmax(0, 1fr);
+    row-gap: 0.75rem;
+  }
+
+  .model-launch-slot {
+    grid-column: 2;
+  }
+
+  .model-launch-slot:empty {
+    display: none;
+  }
+
+  .model-launch-provider {
+    display: block;
+  }
 }

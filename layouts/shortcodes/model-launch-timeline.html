@@ -17,41 +17,75 @@
       {{- errorf "Invalid model launch in %s: %v" $.Page.File.Path . -}}
     {{- end -}}
   {{- end -}}
+  {{- $events := sort $data.events "date" "asc" -}}
+  {{- $dates := slice -}}
+  {{- range $events -}}
+    {{- $dates = $dates | append .date -}}
+  {{- end -}}
+  {{- $providers := slice
+    (dict "name" "OpenAI" "label" "OpenAI" "class" "openai")
+    (dict "name" "Anthropic" "label" "Anthropic" "class" "anthropic")
+    (dict "name" "Google" "label" "Google Gemini" "class" "google") -}}
   {{- $css := resources.Get "css/model_launch_timeline.css" | minify | fingerprint -}}
-  {{- $js := resources.Get "js/model_launch_timeline.js" | minify | fingerprint -}}
   {{- $id := printf "model-launch-timeline-%d" .Ordinal -}}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
-<div class="model-launch-timeline" id="{{ $id }}" data-as-of="{{ $data.asOf }}">
+<div class="model-launch-timeline" id="{{ $id }}">
   <p class="model-launch-updated">Last updated: <time datetime="{{ $data.asOf }}">{{ $asOf.Format "January 2, 2006" }}</time></p>
-  <div class="model-launch-chart" hidden>
-    <div class="model-launch-legend" aria-label="Providers">
-      <span><span class="model-launch-key openai" aria-hidden="true"></span>OpenAI</span>
-      <span><span class="model-launch-key anthropic" aria-hidden="true"></span>Anthropic</span>
-      <span><span class="model-launch-key google" aria-hidden="true"></span>Google Gemini</span>
-    </div>
-    <p class="model-launch-help">Hover or focus for dates. Tap a marker for details; select a label for its source.</p>
-    <div class="model-launch-scroll"><div class="model-launch-strips"></div></div>
+  <p class="model-launch-help">Select a model for its source. Gaps between dates are not to scale.</p>
+  <div class="model-launch-columns" aria-label="Providers">
+    <span class="model-launch-date-heading">Date</span>
+    {{- range $providers }}
+    <span><span class="model-launch-key {{ .class }}" aria-hidden="true"></span>{{ .label }}</span>
+    {{- end }}
   </div>
-  <details class="model-launch-sources" open>
-    <summary>Launch dates and sources ({{ len $data.events }} entries)</summary>
+  <ol class="model-launch-chronology" aria-label="Model launches in chronological order">
+    {{- $year := "" -}}
+    {{- range $dates | uniq -}}
+      {{- $date := time.AsTime . -}}
+      {{- $dateEvents := where $events "date" . -}}
+      {{- $nextYear := $date.Format "2006" -}}
+      {{- if ne $year $nextYear -}}
+        {{- $year = $nextYear }}
+    <li class="model-launch-year"><h3>{{ $year }}</h3></li>
+      {{- end }}
+    <li class="model-launch-row" data-date="{{ . }}">
+      <time class="model-launch-date" datetime="{{ . }}" aria-label="{{ $date.Format "January 2, 2006" }}">{{ $date.Format "Jan 2" }}</time>
+      {{- range $providers }}
+      <div class="model-launch-slot" data-company="{{ .name }}">
+        {{- $provider := . -}}
+        {{- range where $dateEvents "company" .name }}
+        <div class="model-launch-entry">
+          <div class="model-launch-model">
+            <span class="model-launch-key {{ $provider.class }}" aria-hidden="true"></span>
+            <div>
+              <span class="model-launch-provider">{{ $provider.label }}</span>
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .label }}</a>
+            </div>
+          </div>
+        </div>
+        {{- end }}
+      </div>
+      {{- end }}
+    </li>
+    {{- end }}
+  </ol>
+  <details class="model-launch-sources">
+    <summary>Launch dates and sources ({{ len $events }} entries)</summary>
     <div class="model-launch-scroll">
       <table>
         <caption>Selected language and reasoning model launches</caption>
-        <thead><tr><th scope="col">Date</th><th scope="col">Provider</th><th scope="col">Model / source</th><th scope="col">Rollout notes</th></tr></thead>
+        <thead><tr><th scope="col">Date</th><th scope="col">Provider</th><th scope="col">Model / source</th></tr></thead>
         <tbody>
-          {{- range sort $data.events "date" "asc" }}
-          <tr data-date="{{ .date }}" data-company="{{ .company }}">
+          {{- range $events }}
+          <tr>
             <td><time datetime="{{ .date }}">{{ (time.AsTime .date).Format "Jan 2, 2006" }}</time></td>
             <td>{{ if eq .company "Google" }}Google Gemini{{ else }}{{ .company }}{{ end }}</td>
             <td><a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .label }}</a></td>
-            <td class="model-launch-detail">{{ .detail }}</td>
           </tr>
           {{- end }}
         </tbody>
       </table>
     </div>
   </details>
-  <div class="model-launch-tooltip" id="{{ $id }}-tooltip" role="tooltip" hidden></div>
 </div>
-<script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
 {{- end -}}
