@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Sage & cream",
+    "look": "Muted greens, warm ivory, soft borders.",
+    "fit": "Productivity, wellness, personal sites.",
+    "image": "sage-cream.svg",
+    "alt": "Gather landing page in warm ivory and sage green, with soft borders, a rounded green button and a calm planning card."
+  },
+  {
+    "name": "Minimal monochrome",
+    "look": "Black, white, gray, generous whitespace.",
+    "fit": "Portfolios, business tools.",
+    "image": "minimal-monochrome.svg",
+    "alt": "Black-and-white Gather page with oversized plain typography, generous whitespace and a restrained black button."
+  },
+  {
+    "name": "Modern SaaS",
+    "look": "Neutral surfaces, one bold accent, rounded cards.",
+    "fit": "Software products, dashboards.",
+    "image": "modern-saas.svg",
+    "alt": "Gather software landing page with neutral surfaces, a bold violet accent and rounded interface cards."
+  },
+  {
+    "name": "Dark emerald",
+    "look": "Charcoal backgrounds, deep greens, mint accents.",
+    "fit": "Developer tools, analytics.",
+    "image": "dark-emerald.svg",
+    "alt": "Dark Gather interface with charcoal and deep green surfaces, mint highlights and a small analytics panel."
+  },
+  {
+    "name": "Midnight blue",
+    "look": "Navy backgrounds, blue or cyan highlights.",
+    "fit": "Technology, security.",
+    "image": "midnight-blue.svg",
+    "alt": "Navy Gather landing page with cyan highlights, a technical grid and a compact interface panel."
+  },
+  {
+    "name": "Warm editorial",
+    "look": "Cream, terracotta, serif headlines.",
+    "fit": "Blogs, publications, consulting.",
+    "image": "warm-editorial.svg",
+    "alt": "Cream Gather page with large serif headlines, terracotta details and a publication-like composition."
+  },
+  {
+    "name": "Scandinavian minimal",
+    "look": "Warm neutrals, restrained typography, airy layouts.",
+    "fit": "Architecture, lifestyle.",
+    "image": "scandinavian-minimal.svg",
+    "alt": "Airy Gather page using warm neutral colors, restrained typography and simple architectural geometry."
+  },
+  {
+    "name": "Luxury",
+    "look": "Black or ivory, subtle gold, elegant typography.",
+    "fit": "Premium brands, hospitality.",
+    "image": "luxury.svg",
+    "alt": "Luxury Gather page with elegant serif typography, subtle gold rules and a restrained premium palette."
+  },
+  {
+    "name": "Glassmorphism",
+    "look": "Translucent panels, blur, layered gradients.",
+    "fit": "App interfaces, creative landing pages.",
+    "image": "glassmorphism.svg",
+    "alt": "Gather page with overlapping translucent panels and blurred purple and cyan gradient shapes visible behind the glass."
+  },
+  {
+    "name": "Neobrutalism",
+    "look": "Bold outlines, vivid colors, hard shadows.",
+    "fit": "Playful products, creative portfolios.",
+    "image": "neobrutalism.svg",
+    "alt": "Vivid yellow and pink Gather page with heavy black outlines, bold type and hard offset shadows."
+  },
+  {
+    "name": "Bento grid",
+    "look": "Modular cards with mixed sizes.",
+    "fit": "Product showcases, portfolios.",
+    "image": "bento-grid.svg",
+    "alt": "Gather page arranged as a bento grid of mixed-size cards, with a large headline tile and smaller planning and chart tiles."
+  },
+  {
+    "name": "Retro terminal",
+    "look": "Dark backgrounds, green or amber text, monospace.",
+    "fit": "Developer portfolios, technical projects.",
+    "image": "retro-terminal.svg",
+    "alt": "Gather presented as a dark terminal window, with green monospace text, command prompts and a text-based status panel."
+  },
+  {
+    "name": "Swiss / international",
+    "look": "Strong typography, precise grids, bold hierarchy.",
+    "fit": "Agencies, professional portfolios.",
+    "image": "swiss-international.svg",
+    "alt": "Gather page with a precise typographic grid, strong black sans-serif headlines, fine rules and a red accent."
+  },
+  {
+    "name": "Organic / earthy",
+    "look": "Olive, sand, clay, natural textures.",
+    "fit": "Sustainability, food, outdoor brands.",
+    "image": "organic-earthy.svg",
+    "alt": "Earthy Gather page with olive, sand and clay colors, natural contours and a textured background."
+  },
+  {
+    "name": "Playful pastel",
+    "look": "Soft colors, rounded shapes, friendly illustrations.",
+    "fit": "Education, community, family products.",
+    "image": "playful-pastel.svg",
+    "alt": "Gather page in soft pastel colors with rounded shapes and friendly abstract character illustrations."
+  }
+]

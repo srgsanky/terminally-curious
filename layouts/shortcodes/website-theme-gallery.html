@@ -1,0 +1,35 @@
+{{- $resource := .Page.Resources.Get "themes.json" -}}
+{{- if not $resource -}}
+  {{- errorf "website-theme-gallery requires themes.json in the page bundle: %s" .Page.File.Path -}}
+{{- else -}}
+  {{- $themes := $resource | transform.Unmarshal -}}
+  {{- $css := resources.Get "css/website_theme_gallery.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<table class="website-theme-gallery">
+  <caption>Website styles, visual cues and suggested uses</caption>
+  <thead>
+    <tr><th scope="col">Theme / style</th><th scope="col">Sample</th></tr>
+  </thead>
+  <tbody>
+    {{- range $themes -}}
+      {{- $image := $.Page.Resources.Get (printf "samples/%s" .image) -}}
+      {{- if or (not $image) (not .name) (not .look) (not .fit) (not .alt) -}}
+        {{- errorf "Incomplete website theme in %s: %s" $.Page.File.Path .name -}}
+      {{- else }}
+    <tr>
+      <th scope="row">
+        <span class="website-theme-name">{{ .name }}</span>
+        <p class="website-theme-look">{{ .look }}</p>
+        <p class="website-theme-fit"><span>Good fit:</span> {{ .fit }}</p>
+      </th>
+      <td>
+        <a href="{{ $image.RelPermalink }}" aria-label="View {{ .name }} sample at full size">
+          <img src="{{ $image.RelPermalink }}" alt="{{ .alt }}" width="720" height="450" loading="lazy" decoding="async">
+        </a>
+      </td>
+    </tr>
+      {{- end -}}
+    {{- end }}
+  </tbody>
+</table>
+{{- end -}}
